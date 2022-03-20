@@ -1,4 +1,4 @@
-export const population = {
+export const populationData = {
   "message": null,
   "result": {
     "boundaryYear": 2015,

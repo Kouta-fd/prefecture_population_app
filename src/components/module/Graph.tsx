@@ -8,63 +8,24 @@ import {
   YAxis,
   Label,
   ResponsiveContainer,
+  Tooltip,
 } from 'recharts';
 
-export const Graph = () => {
-  const data = [
-    {
-      year: '2010',
-      大阪: 4000,
-      京都: 2400,
-    },
-    {
-      year: '2011',
-      大阪: 3000,
-      京都: 1398,
-    },
-    {
-      year: '2012',
-      大阪: 2000,
-      京都: 9800,
-    },
-    {
-      year: '2013',
-      大阪: 2780,
-      京都: 3908,
-    },
-    {
-      year: '2014',
-      大阪: 1890,
-      京都: 4800,
-    },
-    {
-      year: '2015',
-      大阪: 2390,
-      京都: 3800,
-    },
-    {
-      year: '2016',
-      大阪: 3490,
-      京都: 4300,
-    },
-    {
-      year: '2017',
-      大阪: 5700,
-      京都: 6300,
-    },
-    {
-      year: '2018',
-      大阪: 5490,
-      京都: 3200,
-    },
-  ];
+type Props = {
+  population: {
+    prefName: string;
+    data: { year: number; value: number }[];
+  }[];
+};
+
+export const Graph: React.FC<Props> = ({ population }) => {
+
   return (
     <div style={{ height: 500 + 'px' }}>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
           height={300}
-          data={data}
           margin={{
             top: 5,
             right: 30,
@@ -81,6 +42,7 @@ export const Graph = () => {
               offset: -5,
               position: 'insideBottomRight',
             }}
+            allowDuplicatedCategory={false}
           />
           <YAxis
             interval="preserveStartEnd"
@@ -91,8 +53,10 @@ export const Graph = () => {
             }}
           />
           <Legend />
-          <Line type="monotone" dataKey="大阪" stroke="#8884d8" activeDot={{ r: 8 }} />
-          <Line type="monotone" dataKey="京都" stroke="#82ca9d" />
+          <Tooltip />
+          {population.map((p) => (
+            <Line dataKey="value" data={p.data} name={p.prefName} key={p.prefName} />
+          ))}
         </LineChart>
       </ResponsiveContainer>
     </div>
