@@ -1,4 +1,17 @@
 import React from 'react';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+
+const prefListWrap = css({
+  display: 'flex',
+  listStyle: 'none',
+  flexWrap: 'wrap',
+  paddingLeft: 0,
+});
+
+const prefListItem = css({
+  margin: 5 + 'px',
+});
 
 type Props = {
   pref: {
@@ -12,9 +25,9 @@ type Props = {
 const CheckList: React.FC<Props> = ({ secTitle, pref, onChange }) => (
   <div>
     <h2>{secTitle}</h2>
-    <ul>
+    <ul css={prefListWrap}>
       {pref.map((prefecture) => (
-        <li key={prefecture.prefName}>
+        <li css={prefListItem} key={prefecture.prefName}>
           <input
             id={'n' + prefecture.prefCode}
             type="checkbox"

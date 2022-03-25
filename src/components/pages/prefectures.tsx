@@ -3,6 +3,17 @@ import Header from '../module/Header';
 import CheckList from '../module/checkList';
 import Graph from '../module/Graph';
 import { populationData } from '../../mock_data/population';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+
+const layout = css({
+  width: 80 + '%',
+  maxWidth: 1025 + 'px',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  paddingLeft: 30 + 'px',
+  paddingRight: 30 + 'px',
+});
 
 const Prefectures: React.FC = () => {
   const [prefectures, setPrefectures] = useState<{
@@ -42,13 +53,13 @@ const Prefectures: React.FC = () => {
     console.log(population_data);
   };
   return (
-    <>
+    <main css={layout}>
       <Header title="タイトル" />
       {prefectures && (
         <CheckList pref={prefectures.result} onChange={handleCheck} secTitle="都道府県" />
       )}
       <Graph population={population_data} />
-    </>
+    </main>
   );
 };
 
