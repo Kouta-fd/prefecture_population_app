@@ -1,5 +1,5 @@
 export const populationData = {
-  "message": null,
+  // "message": null,
   "result": {
     "boundaryYear": 2015,
     "data": [
