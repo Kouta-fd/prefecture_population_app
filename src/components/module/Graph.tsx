@@ -14,12 +14,11 @@ type Props = {
   population: {
     prefName: string;
     data: { year: number; value: number }[];
+    color: string;
   }[];
 };
 
 export const Graph: React.FC<Props> = ({ population }) => {
-  console.log(population);
-
   return (
     <div style={{ height: 500 + 'px' }}>
       <ResponsiveContainer width="100%" height="100%">
@@ -56,7 +55,13 @@ export const Graph: React.FC<Props> = ({ population }) => {
           <Legend />
           <Tooltip />
           {population.map((p, index) => (
-            <Line dataKey="value" data={p.data} name={p.prefName} key={index} />
+            <Line
+              dataKey="value"
+              data={p.data}
+              name={p.prefName}
+              stroke={p.color}
+              key={index}
+            />
           ))}
         </LineChart>
       </ResponsiveContainer>
