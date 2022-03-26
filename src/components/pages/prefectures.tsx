@@ -8,6 +8,7 @@ import { css } from '@emotion/react';
 const layout = css({
   width: 80 + '%',
   maxWidth: 1025 + 'px',
+  marginBottom: 60 + 'px',
   marginLeft: 'auto',
   marginRight: 'auto',
   paddingLeft: 30 + 'px',
@@ -77,13 +78,15 @@ const Prefectures: React.FC = () => {
     }
   };
   return (
-    <main css={layout}>
+    <>
       <Header title="都道府県別の総人口推移" />
-      {prefectures && (
-        <CheckList pref={prefectures.result} onChange={handleCheck} secTitle="都道府県" />
-      )}
-      <Graph population={population_data} />
-    </main>
+      <div css={layout}>
+        {prefectures && (
+          <CheckList pref={prefectures.result} onChange={handleCheck} secTitle="都道府県" />
+        )}
+        <Graph population={population_data} />
+      </div>
+    </>
   );
 };
 
