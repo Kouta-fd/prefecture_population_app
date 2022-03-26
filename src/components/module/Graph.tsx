@@ -6,7 +6,6 @@ import {
   CartesianGrid,
   Legend,
   YAxis,
-  Label,
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
@@ -19,6 +18,7 @@ type Props = {
 };
 
 export const Graph: React.FC<Props> = ({ population }) => {
+  console.log(population);
 
   return (
     <div style={{ height: 500 + 'px' }}>
@@ -49,13 +49,14 @@ export const Graph: React.FC<Props> = ({ population }) => {
             label={{
               value: '人口数',
               angle: -90,
+
               position: 'insideLeft',
             }}
           />
           <Legend />
           <Tooltip />
-          {population.map((p) => (
-            <Line dataKey="value" data={p.data} name={p.prefName} key={p.prefName} />
+          {population.map((p, index) => (
+            <Line dataKey="value" data={p.data} name={p.prefName} key={index} />
           ))}
         </LineChart>
       </ResponsiveContainer>

@@ -31,26 +31,38 @@ const Prefectures: React.FC = () => {
       headers: { 'X-API-KEY': process.env.REACT_APP_PREFECTURES_KEY },
     }).then((res) => {
       res.json().then((json) => {
-        console.log(json.result);
         setPrefectures(json);
       });
     });
   }, []);
 
-  // });
+  //都道府県の人口
   const handleCheck = (prefName: string, prefCode: number, check: boolean) => {
     console.log(prefName);
     console.log(prefCode);
     console.log(check);
-
-    //人口
-    let population_data = [];
-    population_data.push({
-      prefName: prefName,
-      data: populationData.result.data[0].data,
-    });
-    set_population_data(population_data);
-    console.log(population_data);
+    let population_data_new = population_data.slice();
+    if (check) {
+      fetch(
+        'https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=' +
+          String(prefCode),
+        {
+          headers: { 'X-API-KEY': process.env.REACT_APP_PREFECTURES_KEY },
+        },
+      ).then((res) => {
+        res.json().then((json) => {
+          population_data_new.push({
+            prefName: prefName,
+            data: json.result.data[0].data,
+          });
+          set_population_data(population_data_new);
+        });
+      });
+    } else {
+      const delete_index = population_data_new.findIndex((val) => val.prefName === prefName);
+      population_data_new.splice(delete_index, 1);
+      set_population_data(population_data_new);
+    }
   };
   return (
     <main css={layout}>
